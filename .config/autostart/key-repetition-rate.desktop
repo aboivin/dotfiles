@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Key autorepeat setup
+Comment=Key autorepeat setup
+Exec=xset r rate 300 30
+OnlyShowIn=GNOME;
+X-GNOME-Autostart-Phase=Application

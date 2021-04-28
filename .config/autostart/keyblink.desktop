@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Keyblink
+Comment=Setup key blink rate
+Exec=gsettings set org.gnome.desktop.interface cursor-blink-time 400
+OnlyShowIn=GNOME;
+X-GNOME-Autostart-Phase=Application

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=CapsLock diabled
+Comment=Disable the CapsLockKey
+Exec=setxkbmap -option caps:none
+OnlyShowIn=GNOME;
+X-GNOME-Autostart-Phase=Application
