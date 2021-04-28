@@ -1,0 +1,40 @@
+[global_config]
+  title_hide_sizetext = True
+  title_transmit_bg_color = "#204a87"
+  enabled_plugins = LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler, TerminatorThemes
+  always_split_with_profile = True
+[keybindings]
+[profiles]
+  [[default]]
+    background_darkness = 0.96
+    cursor_color = "#aaaaaa"
+  [[Aurora]]
+    background_color = "#0f1c21"
+    cursor_color = "#00485a"
+    foreground_color = "#80b6ad"
+    palette = "#0f1c21:#046655:#04c975:#b5bd68:#308891:#94a5bc:#8abeb7:#80b6ad:#0f1c21:#046655:#04c975:#b5bd68:#308891:#94a5bc:#8abeb7:#80b6ad"
+  [[Arthur]]
+    background_color = "#1c1c1c"
+    cursor_color = "#e2bbef"
+    foreground_color = "#ddeedd"
+    palette = "#3d352a:#cd5c5c:#86af80:#e8ae5b:#6495ed:#deb887:#b0c4de:#bbaa99:#554444:#cc5533:#88aa22:#ffa75d:#87ceeb:#996600:#b0c4de:#ddccbb"
+  [[ForestBlue]]
+    background_color = "#051519"
+    background_darkness = 0.97
+    background_type = transparent
+    cursor_color = "#9e9ecb"
+    foreground_color = "#e2d8cd"
+    show_titlebar = False
+    palette = "#333333:#f8818e:#347902:#1a8e63:#8ed0ce:#5e468c:#31658c:#e2d8cd:#3d3d3d:#fb3d66:#6bb48d:#30c85a:#39a7a2:#7e62b3:#6096bf:#e2d8cd"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1200, 800
+      position = 350:200
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = ForestBlue
+[plugins]
