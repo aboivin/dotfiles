@@ -1,0 +1,53 @@
+#!/bin/bash
+
+USAGE='Usage: quickcam --cam_device /dev/video2 --mic_device_number=1 --out /home/your-user/Videos/test.mp4 --mute'
+MUTE=0
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    --cam_device)
+    CAM_DEVICE="$2"
+    shift
+    shift
+    ;;
+    --mic_device_number)
+    MIC_DEVICE_NUMBER="$2"
+    shift
+    shift
+    ;;
+    --out)
+    OUTPUT_PATH="$2"
+    shift
+    shift
+    ;;
+    --mute)
+    MUTE=1
+    shift
+    ;;
+    -h|--help)
+    echo $USAGE
+    exit 0
+    ;;
+    *)
+    echo $USAGE
+    exit 1
+    ;;
+esac
+done
+
+[ -z $CAM_DEVICE ] && echo $USAGE && exit 1
+
+vlc_transform_cmd='transform{type="hflip"}'
+vlc_output_param='#transcode{vcodec=mp4v,acodec=mp4a}:std{access=file,mux=mp4,dst="'$OUTPUT_PATH'"}'
+
+vlc_output_cmd=""
+[ ! -z $OUTPUT_PATH ] && vlc_output_cmd="--sout='${vlc_output_param}'"
+
+vlc_mic_cmd=''
+[ MUTE = 0 ] && vlc_mic_cmd=":input-slave=alsa://hw:${MIC_DEVICE_NUMBER},0"
+
+vlc --video-filter=${vlc_transform_cmd} v4l2://${CAM_DEVICE} :v4l2-standard=ALL ${vlc_mic_cmd} :live-caching=30 ${vlc_output_cmd}
+
