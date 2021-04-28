@@ -18,6 +18,7 @@ plugins=(git oh-my-git battery mvn systemd ubuntu docker sudo fzf fzf-z terrafor
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+PATH=$PATH:$HOME/.config/scripts
 export ZSH_CUSTOM="~/workspace/dotfiles/zsh"
 #!/bin/bash
 
@@ -104,10 +105,6 @@ if [[ -f $IDEA_HOME/bin/idea.sh ]]; then
 	alias idea=idea.sh
 fi
 
-if [  -f $HOME/.spawner.sh ]; then
-    source $HOME/.spawner.sh
-fi
-
 if [ -f $HOME/.cargo/env ]; then
     source $HOME/.cargo/env
     alias ls='exa -GFlh'
@@ -119,14 +116,4 @@ if [ -f $HOME/software/packer/packer ]; then
     PACKER_HOME=/home/aboivin/software/packer
     PATH=$PATH:$PACKER_HOME
 fi    
-
-if [ $(command -v vlc) ]; then
-   alias quickcam='~/.quickcam.sh'
-fi
-
-mkdircd ()
-{
-
-	mkdir ${1} && cd ${1}
-}
 
