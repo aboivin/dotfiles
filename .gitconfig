@@ -1,0 +1,59 @@
+[user]
+	email = arnaud@teemo.co
+	name = Arnaud BOIVIN
+
+[github]
+	user = aboivin
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+
+[hub]
+	protocol = https
+
+[color]
+	ui = auto
+
+[svn]
+	rmdir = true
+
+[diff]
+	renamelimit = 0
+
+[alias]
+	cp = cherry-pick
+	st = status
+	br = branch
+	ci = commit
+	undo = reset --hard "HEAD~1"
+	uncommit = reset "HEAD~1"
+	lg = log --graph --branches --oneline --graph --decorate
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	co = checkout
+	lost = !"git fsck | awk '/dangling commit/ {print $3}' | git show --format='SHA1: %C(yellow)%h%Creset %f' --stdin | awk '/SHA1/ {sub(\"SHA1: \", \"\"); print}'"
+	amend = !"git add -A && git commit --amend"
+	up = !"git fetch && git rebase origin/master"
+	wip = !"git add --all && git commit -m wip"
+	fpull = !"git fetch -a -p && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)"
+	please = "push --force-with-lease"
+	noedit = "commit --amend --no-edit"
+
+[push]
+	default = simple
+
+[help]
+	autocorrect = 10
+
+[merge]
+	conflictstyle = merge
+	tool = kdiff3
+
+[rerere]
+	enabled = 1
+
+[status]
+	showUntrackedFiles = all
+[credential]
+	helper = store
