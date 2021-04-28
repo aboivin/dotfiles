@@ -1,0 +1,169 @@
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="hckr"
+
+export LESS=' -R --quit-if-one-screen --no-init'
+export MORE=' -R --quit-if-one-screen --no-init'
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"i# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git oh-my-git battery mvn systemd ubuntu docker sudo fzf fzf-z terraform)
+
+# User configuration
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export ZSH_CUSTOM="~/workspace/dotfiles/zsh"
+#!/bin/bash
+
+if [  -f $HOME/.zshrc.custom ]; then
+    source $HOME/.zshrc.custom
+fi
+
+#alias mkdircd="mkdir $1 && cd $1"
+alias vi='vim'
+alias ls='ls -GFlh'
+alias gzip=pigz
+alias wip='git co -m wip'
+alias amend='git amend'
+alias got='git'
+alias mci='mvn clean install'
+alias dcqlsh='docker exec -it $(docker ps -qf "name=cassandra") cqlsh'
+alias more='less'
+alias dps='docker ps --format "{{ .ID }}\t{{ .Image }}\t{{ .Ports }}"'
+alias night='redshift'
+alias mvnup='mvn versions:display-property-updates versions:display-dependency-updates versions:display-plugin-updates -DgenerateBackupPoms'
+alias dose=docker-compose
+alias gw='./gradlew'
+alias tf='terraform'
+alias gs='gst'
+alias boseon='echo "connect 60:AB:D2:31:DD:C1" | bluetoothctl'
+alias boseoff='echo "disconnect 60:AB:D2:31:DD:C1" | bluetoothctl'
+alias capsoff='setxkbmap -option caps:none'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+source $ZSH/oh-my-zsh.sh
+
+if [[ -f "$HOME/software/z/z.sh" ]]; then
+	. $HOME/software/z/z.sh
+fi
+
+if [[ -f "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+    alias java13='sdk use java 13.0.1.hs-adpt'
+    alias jdk13=java13
+    alias java11='sdk use java 11.0.10-open'
+    alias jdk11=java11
+    alias java8='sdk use java 8.0.282-open'
+    alias jdk8=java8
+    alias java14='sdk use java 14.0.0-open'
+    alias jdk14=java14
+fi
+
+eval $(thefuck --alias zut) 
+
+export FZF_BASE=/home/aboivin/.fzf/
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export LANG=en_US.UTF-8
+
+export FZF_DEFAULT_OPTS="--no-mouse --height 50% -1 --reverse --multi --inline-info --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || cat {}) 2>/dev/null | head -300' --preview-window='right:hidden:wrap' --bind='f3:execute(bat --style=numbers {} || less -f {}),f2:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-a:select-all+accept,ctrl-y:execute-silent(echo {+} | pbcopy)'"
+export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+export FZF_DEFAULT_COMMAND="git ls-files --cached --others --exclude-standard | fd --type f --type l $FD_OPTIONS"
+export FZF_CTRL_T_COMMAND="fd $FD_OPTIONS"
+export FZF_CTRL_C_COMMAND="fd --type d $FD_OPTIONS"
+
+export GOPATH=$HOME/go
+
+if [[ -f "$HOME/software/go/bin/go" ]]; then
+	export PATH=$PATH:$HOME/software/go/bin:$GOPATH/bin
+fi
+
+if [[ -f "$HOME/software/node/bin/node" ]]; then
+	export PATH=$PATH:$HOME/software/node/bin
+fi
+
+NODE_HOME="$HOME/software/$(ls -1 ~/software | grep node | sort | tail -1)"
+if [[ -f $NODE_HOME/bin/node ]]; then
+        export PATH=$PATH:$NODE_HOME/bin
+fi
+
+if [[ -f "$HOME/gems" ]]; then
+	GEM_HOME=$HOME/gems
+        export PATH=$PATH:$HOME/gems/bin
+fi
+
+IDEA_HOME="$HOME/software/$(ls -1 ~/software | grep idea | sort | tail -1)"
+if [[ -f $IDEA_HOME/bin/idea.sh ]]; then
+	export PATH=$PATH:$IDEA_HOME/bin
+	alias idea=idea.sh
+fi
+
+if [  -f $HOME/.spawner.sh ]; then
+    source $HOME/.spawner.sh
+fi
+
+if [ -f $HOME/.cargo/env ]; then
+    source $HOME/.cargo/env
+    alias ls='exa -GFlh'
+    alias ll='exa -lh'
+    alias l='ll'
+fi
+
+if [ -f $HOME/software/packer/packer ]; then
+    PACKER_HOME=/home/aboivin/software/packer
+    PATH=$PATH:$PACKER_HOME
+fi    
+
+if [ $(command -v vlc) ]; then
+   alias quickcam='~/.quickcam.sh'
+fi
+
+mkdircd ()
+{
+
+	mkdir ${1} && cd ${1}
+}
+
