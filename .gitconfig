@@ -57,3 +57,5 @@
 	showUntrackedFiles = all
 [credential]
 	helper = store
+[pull]
+	ff = only
