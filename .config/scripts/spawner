@@ -1,137 +1,144 @@
-spawn ()
-{
-	case ${1} in
-	pg)
-		if [ -n "$(docker ps -q -f name=postgres-spawner)" ]; then
-			echo "PostgreSQL already running $(docker ps -qf name=postgres)"
-		else
-			echo "Spawing PostgreSQL ! pw: mypw"
-			if [ -n "$(docker ps -aq -f status=exited -f name=postgres-spawner)" ]; then
-                                docker rm postgres-spawner &>/dev/null
-                        fi
-			docker run --name postgres-spawner -e POSTGRES_PASSWORD=mypw -p5432:5432 -d postgres
-		fi
-		;;
-        pgis)
-                if [ -n "$(docker ps -q -f name=postgres-spawner)" ]; then
-                        echo "PostgreSQL already running $(docker ps -qf name=postgres)"
-                else
-                        echo "Spawing PostgreSQL ! pw: mypw"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=postgres-spawner)" ]; then
-                                docker rm postgres-spawner &>/dev/null
-                        fi
-                        docker run --name postgres-spawner -e POSTGRES_PASSWORD=mypw -p5432:5432 -d postgis/postgis-homemade
-                fi
-                ;;
-	mysql)
-                if [ -n "$(docker ps -q -f name=mysql-spawner)" ]; then
-                        echo "MySQL already running $(docker ps -qf name=mysql)"
-                else
-                        echo "Spawing MySQL ! pw: mypw"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=mysql-spawner)" ]; then
-                                docker rm mysql-spawner &>/dev/null
-                        fi
-                        docker run --name mysql-spawner -e MYSQL_ROOT_PASSWORD=mypw -p3306:3306 -d mysql
-                fi
-                ;;
-        aerospike)
-                if [ -n "$(docker ps -q -f name=aerospike-spawner)" ]; then
-                        echo "Aerospike already running $(docker ps -qf name=aerospike)"
-                else
-                        echo "Spawing Aerospike !"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=aerospike-spawner)" ]; then
-                                docker rm aerospike-spawner &>/dev/null
-                        fi
-                        docker run --name aerospike-spawner -p 3000:3000 -p 3001:3001 -p 3002:3002 -p 3003:3003 -d aerospike
-                fi
-                ;;
+#!/bin/bash
 
-	zk)
-		if [ -n "$(docker ps -q -f name=zookeeper-spawner)" ]; then
-			echo "Zookeeper alreadt running $(docker ps -qf name=zookeeper-spawner)"
-		else
-			echo "Spawning zookeeper on host network port 32181 !"
-			if [ -n "$(docker ps -aq -f status=exited -f name=zookeeper-spawner)" ]; then
-                                docker rm zookeeper-spawner &>/dev/null
-                        fi
+USAGE='Usage: spawn kafka'
 
-                        docker run --name zookeeper-spawner -e ZOOKEEPER_CLIENT_PORT=32181 \
-                                                            -e ZOOKEEPER_TICK_TIME=2000 \
-                                                            -e ZOOKEEPER_SYNC_LIMIT=2 \
-                                                            --net=host \
-                                                            -d confluentinc/cp-zookeeper
-		fi
-		;;
-	kafka)
-		if [ -n "$(docker ps -q -f name=kafka-spawner)" ] || [ -n "$(docker ps -q -f name=zookeeper-spawner)" ]; then
-                        echo "Kafka already running $(docker ps -qf name=kafka-spawner)"
-                else
-                        echo "Spawing Kakfa on host network port 39092 !"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=kafka-spawner)" ]; then
-                                docker rm kafka-spawner &>/dev/null
-                        fi
-                        if [ -n "$(docker ps -aq -f status=exited -f name=zookeeper-spawner)" ]; then
-                                docker rm zookeeper-spawner &>/dev/null
-                        fi
+if [ $# -eq 1 ]; then
+app="$1"
 
-			docker run --name zookeeper-spawner -e ZOOKEEPER_CLIENT_PORT=32181 \
-		       					    -e ZOOKEEPER_TICK_TIME=2000 \
-		       					    -e ZOOKEEPER_SYNC_LIMIT=2 \
-							    --net=host \
-		       					    -d confluentinc/cp-zookeeper
-                        docker run --name kafka-spawner	-e KAFKA_ZOOKEEPER_CONNECT=localhost:32181 \
-						        -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:39092 \
-						        -e KAFKA_BROKER_ID=2 \
-						        -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
-							-e KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1 \
-							-e KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1 \
-					  	        --net=host \
-						        -d confluentinc/cp-kafka
+case $app in
+pg)
+	if [ -n "$(docker ps -q -f name=postgres-spawner)" ]; then
+		echo "PostgreSQL already running $(docker ps -qf name=postgres)"
+	else
+		echo "Spawing PostgreSQL ! pw: mypw"
+		if [ -n "$(docker ps -aq -f status=exited -f name=postgres-spawner)" ]; then
+                        docker rm postgres-spawner &>/dev/null
+                fi
+		docker run --name postgres-spawner -e POSTGRES_PASSWORD=mypw -p5432:5432 -d postgres
+	fi
+	;;
+pgis)
+        if [ -n "$(docker ps -q -f name=postgres-spawner)" ]; then
+                echo "PostgreSQL already running $(docker ps -qf name=postgres)"
+        else
+                echo "Spawing PostgreSQL ! pw: mypw"
+                if [ -n "$(docker ps -aq -f status=exited -f name=postgres-spawner)" ]; then
+                        docker rm postgres-spawner &>/dev/null
+                fi
+                docker run --name postgres-spawner -e POSTGRES_PASSWORD=mypw -p5432:5432 -d postgis/postgis-homemade
+        fi
+        ;;
+mysql)
+        if [ -n "$(docker ps -q -f name=mysql-spawner)" ]; then
+                echo "MySQL already running $(docker ps -qf name=mysql)"
+        else
+                echo "Spawing MySQL ! pw: mypw"
+                if [ -n "$(docker ps -aq -f status=exited -f name=mysql-spawner)" ]; then
+                        docker rm mysql-spawner &>/dev/null
+                fi
+                docker run --name mysql-spawner -e MYSQL_ROOT_PASSWORD=mypw -p3306:3306 -d mysql
+        fi
+        ;;
+aerospike)
+        if [ -n "$(docker ps -q -f name=aerospike-spawner)" ]; then
+                echo "Aerospike already running $(docker ps -qf name=aerospike)"
+        else
+                echo "Spawing Aerospike !"
+                if [ -n "$(docker ps -aq -f status=exited -f name=aerospike-spawner)" ]; then
+                        docker rm aerospike-spawner &>/dev/null
+                fi
+                docker run --name aerospike-spawner -p 3000:3000 -p 3001:3001 -p 3002:3002 -p 3003:3003 -d aerospike
+        fi
+        ;;
+
+zk)
+	if [ -n "$(docker ps -q -f name=zookeeper-spawner)" ]; then
+		echo "Zookeeper alreadt running $(docker ps -qf name=zookeeper-spawner)"
+	else
+		echo "Spawning zookeeper on host network port 32181 !"
+		if [ -n "$(docker ps -aq -f status=exited -f name=zookeeper-spawner)" ]; then
+                        docker rm zookeeper-spawner &>/dev/null
                 fi
 
-		;;
-	elastic)
-		 if [ -n "$(docker ps -q -f name=elasticsearch-spawner)" ]; then
-                        echo "Elasticsearch already running $(docker ps -qf name=elasticsearch-spawner)"
-                else
-                        echo "Spawing Elasticsearch on host network port 9200 and 9300 !"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=elasticsearch-spawner)" ]; then
-                                docker rm elasticsearch-spawner &>/dev/null
-                        fi
-
-                        docker run --name elasticsearch-spawner -p 9200:9200 \
-		       						-p 9300:9300 \
-							       	-e "discovery.type=single-node" \
-								-d elasticsearch:7.9.3
-		fi
-		;;
-	redis)
-		if [ -n "$(docker ps -q -f name=redis-spawner)" ]; then
-                        echo "Redis already running $(docker ps -qf name=redis-spawner)"
-                else
-                        echo "Spawing Redis on host network port 6379 !"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=redis-spawner)" ]; then
-                                docker rm redis-spawner &>/dev/null
-                        fi
-
-                        docker run --name redis-spawner -p 6379:6379 -d redis:6.0.9
+                docker run --name zookeeper-spawner -e ZOOKEEPER_CLIENT_PORT=32181 \
+                                                    -e ZOOKEEPER_TICK_TIME=2000 \
+                                                    -e ZOOKEEPER_SYNC_LIMIT=2 \
+                                                    --net=host \
+                                                    -d confluentinc/cp-zookeeper
+	fi
+	;;
+kafka)
+	if [ -n "$(docker ps -q -f name=kafka-spawner)" ] || [ -n "$(docker ps -q -f name=zookeeper-spawner)" ]; then
+                echo "Kafka already running $(docker ps -qf name=kafka-spawner)"
+        else
+                echo "Spawing Kakfa on host network port 39092 !"
+                if [ -n "$(docker ps -aq -f status=exited -f name=kafka-spawner)" ]; then
+                        docker rm kafka-spawner &>/dev/null
                 fi
-                ;;
-	 cassandra)
-                if [ -n "$(docker ps -q -f name=cassandra-spawner)" ]; then
-                        echo "Cassandra already running $(docker ps -qf name=cassandra-spawner)"
-                else
-                        echo "Spawing Cassandra on host network port 9042 !"
-                        if [ -n "$(docker ps -aq -f status=exited -f name=cassandra-spawner)" ]; then
-                                docker rm cassandra-spawner &>/dev/null
-                        fi
-
-                        docker run --name cassandra-spawner -p 9042:9042 -d cassandra:4.0
+                if [ -n "$(docker ps -aq -f status=exited -f name=zookeeper-spawner)" ]; then
+                        docker rm zookeeper-spawner &>/dev/null
                 fi
-                ;;
 
-	*)
-		echo "Container not found ..."
-		;;
-	esac
-}
+		docker run --name zookeeper-spawner -e ZOOKEEPER_CLIENT_PORT=32181 \
+	       					    -e ZOOKEEPER_TICK_TIME=2000 \
+	       					    -e ZOOKEEPER_SYNC_LIMIT=2 \
+						    --net=host \
+	       					    -d confluentinc/cp-zookeeper
+                docker run --name kafka-spawner	-e KAFKA_ZOOKEEPER_CONNECT=localhost:32181 \
+					        -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:39092 \
+					        -e KAFKA_BROKER_ID=2 \
+					        -e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1 \
+						-e KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1 \
+						-e KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1 \
+				  	        --net=host \
+					        -d confluentinc/cp-kafka
+        fi
+
+	;;
+elastic)
+	 if [ -n "$(docker ps -q -f name=elasticsearch-spawner)" ]; then
+                echo "Elasticsearch already running $(docker ps -qf name=elasticsearch-spawner)"
+        else
+                echo "Spawing Elasticsearch on host network port 9200 and 9300 !"
+                if [ -n "$(docker ps -aq -f status=exited -f name=elasticsearch-spawner)" ]; then
+                        docker rm elasticsearch-spawner &>/dev/null
+                fi
+
+                docker run --name elasticsearch-spawner -p 9200:9200 \
+	       						-p 9300:9300 \
+						       	-e "discovery.type=single-node" \
+							-d elasticsearch:7.9.3
+	fi
+	;;
+redis)
+	if [ -n "$(docker ps -q -f name=redis-spawner)" ]; then
+                echo "Redis already running $(docker ps -qf name=redis-spawner)"
+        else
+                echo "Spawing Redis on host network port 6379 !"
+                if [ -n "$(docker ps -aq -f status=exited -f name=redis-spawner)" ]; then
+                        docker rm redis-spawner &>/dev/null
+                fi
+
+                docker run --name redis-spawner -p 6379:6379 -d redis:6.0.9
+        fi
+        ;;
+cassandra)
+        if [ -n "$(docker ps -q -f name=cassandra-spawner)" ]; then
+                echo "Cassandra already running $(docker ps -qf name=cassandra-spawner)"
+        else
+                echo "Spawing Cassandra on host network port 9042 !"
+                if [ -n "$(docker ps -aq -f status=exited -f name=cassandra-spawner)" ]; then
+                        docker rm cassandra-spawner &>/dev/null
+                fi
+
+                docker run --name cassandra-spawner -p 9042:9042 -d cassandra:4.0
+        fi
+        ;;
+
+*)
+	echo "Container not found ..."
+	;;
+esac
+else
+	echo $USAGE
+fi
