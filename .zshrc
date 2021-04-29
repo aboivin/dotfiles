@@ -22,10 +22,6 @@ PATH=$PATH:$HOME/.config/scripts
 export ZSH_CUSTOM="~/workspace/dotfiles/zsh"
 #!/bin/bash
 
-if [ -d $HOME/.local/kitty.app ]; then
-    PATH=$PATH:$HOME/.local/kitty.app/bin
-fi
-
 if [  -f $HOME/.zshrc.custom ]; then
     source $HOME/.zshrc.custom
 fi
