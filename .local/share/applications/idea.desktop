@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=intellij
+GenericName=Intellij IDE
+Comment=Best IDE
+TryExec=idea
+Exec=idea
+Icon=/home/aboivin/.config/intellij/intellij.png
+Categories=System;IDE;
