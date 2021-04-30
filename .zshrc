@@ -99,11 +99,11 @@ if [[ -f "$HOME/gems" ]]; then
         export PATH=$PATH:$HOME/gems/bin
 fi
 
-IDEA_HOME="$HOME/software/$(ls -1 ~/software | grep idea | sort | tail -1)"
-if [[ -f $IDEA_HOME/bin/idea.sh ]]; then
-	export PATH=$PATH:$IDEA_HOME/bin
-	alias idea=idea.sh
-fi
+#IDEA_HOME="$HOME/software/$(ls -1 ~/software | grep idea | sort | tail -1)"
+#if [[ -f $IDEA_HOME/bin/idea.sh ]]; then
+#	export PATH=$PATH:$IDEA_HOME/bin
+#	alias idea=idea.sh
+#fi
 
 if [ -f $HOME/.cargo/env ]; then
     source $HOME/.cargo/env
