@@ -8,14 +8,14 @@ local rofi_command = 'env /usr/bin/rofi -dpi ' .. get_dpi() .. ' -width ' .. wit
 return {
   -- List of apps to start by default on some actions
   default = {
-    terminal = 'terminator',
+    terminal = 'kitty',
     rofi = rofi_command,
     lock = 'i3lock-fancy',
     quake = 'terminator',
     screenshot = 'flameshot screen -p ~/Pictures',
     region_screenshot = 'flameshot gui -p ~/Pictures',
     delayed_screenshot = 'flameshot screen -p ~/Pictures -d 5000',
-    browser = 'brave-browser',
+    browser = 'firefox',
     editor = 'gedit', -- gui text editor
     social = 'discord',
     game = rofi_command,
@@ -34,7 +34,7 @@ return {
      'flameshot',
      'synology-drive -minimized',
      'steam -silent',
-    'feh --randomize --bg-fill ~/.wallpapers/*',
+    'feh --randomize --bg-fill ~/.config/wallpapers/*',
     '/usr/bin/variety',
     -- Add applications that need to be killed between reloads
     -- to avoid multipled instances, inside the awspawn script
