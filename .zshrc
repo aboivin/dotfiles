@@ -47,6 +47,7 @@ alias boseon='echo "connect 60:AB:D2:31:DD:C1" | bluetoothctl'
 alias boseoff='echo "disconnect 60:AB:D2:31:DD:C1" | bluetoothctl'
 alias capsoff='setxkbmap -option caps:none'
 alias cfg='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias icat='kitty +kitten icat'
 
 source $ZSH/oh-my-zsh.sh
 
