@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Autokey
-Comment=Run autokey
-Exec=autokey-gtk &
-OnlyShowIn=GNOME;
-X-GNOME-Autostart-Phase=Application
