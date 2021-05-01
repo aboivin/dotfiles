@@ -49,9 +49,14 @@ local tags = {
 }
 
 awful.layout.layouts = {
-  awful.layout.suit.tile,
+  awful.layout.suit.tile.left,
+  awful.layout.suit.tile.right,
   awful.layout.suit.max,
-  awful.layout.suit.floating
+}
+
+local screen_layouts = {
+    [1] = awful.layout.suit.tile.right,
+    [2] = awful.layout.suit.tile.left
 }
 
 awful.screen.connect_for_each_screen(
@@ -62,9 +67,9 @@ awful.screen.connect_for_each_screen(
         {
           icon = tag.icon,
           icon_only = true,
-          layout = awful.layout.suit.tile,
+          layout = screen_layouts[s.index],
           gap_single_client = false,
-          gap = 4,
+          gap = 10,
           screen = s,
           defaultApp = tag.defaultApp,
           selected = i == 1
@@ -81,7 +86,7 @@ _G.tag.connect_signal(
     if (currentLayout == awful.layout.suit.max) then
       t.gap = 0
     else
-      t.gap = 4
+      t.gap = 20
     end
   end
 )
