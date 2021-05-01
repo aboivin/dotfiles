@@ -33,7 +33,6 @@ end
 local changesOnScreenCalled = {}
 
 local function changesOnScreen(currentScreen)
-  log_this('screen' .. currentScreen.index, 'geometry.x: ' .. currentScreen.geometry.x .. 'geometry.y: ' .. currentScreen.geometry.y .. 'w: ' .. currentScreen.geometry.width)
   local tagIsMax = currentScreen.selected_tag ~= nil and currentScreen.selected_tag.layout == awful.layout.suit.max
   local clientsToManage = {}
 
