@@ -1,12 +1,11 @@
 local awful = require('awful')
-local gears = require('gears')
 local icons = require('theme.icons')
 local apps = require('configuration.apps')
 
 local tags = {
   {
-    icon = icons.chrome,
-    type = 'chrome',
+    icon = icons.firefox,
+    type = 'firefox',
     defaultApp = apps.default.browser,
     screen = 1
   },
@@ -23,21 +22,9 @@ local tags = {
     screen = 1
   },
   {
-    icon = icons.game,
-    type = 'game',
-    defaultApp = apps.default.game,
-    screen = 1
-  },
-  {
     icon = icons.folder,
     type = 'files',
     defaultApp = apps.default.files,
-    screen = 1
-  },
-  {
-    icon = icons.music,
-    type = 'music',
-    defaultApp = apps.default.music,
     screen = 1
   },
   {

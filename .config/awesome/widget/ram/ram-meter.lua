@@ -1,15 +1,9 @@
 local wibox = require('wibox')
-local mat_list_item = require('widget.material.list-item')
-local mat_icon = require('widget.material.icon')
-local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local dpi = require('beautiful').xresources.apply_dpi
 local gears = require('gears')
 local awful = require('awful')
 local clickable_container = require('widget.material.clickable-container')
-
-local total_prev = 0
-local idle_prev = 0
 
 local HOME = os.getenv('HOME')
 local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/ram/icons/'
