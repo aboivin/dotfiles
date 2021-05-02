@@ -28,9 +28,9 @@ local tags = {
     screen = 1
   },
   {
-    icon = icons.lab,
+    icon = icons.study,
     type = 'any',
-    defaultApp = apps.default.rofi,
+    defaultApp = apps.default.study,
     screen = 1
   }
 }

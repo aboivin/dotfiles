@@ -10,6 +10,7 @@ return {
   default = {
     terminal = 'kitty',
     rofi = rofi_command,
+    study = 'anki',
     lock = 'i3lock-fancy',
     quake = 'terminator',
     screenshot = 'flameshot screen -p ~/Pictures',
