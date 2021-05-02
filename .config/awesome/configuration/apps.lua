@@ -32,7 +32,7 @@ return {
     '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
     'xfce4-power-manager', -- Power manager
      'flameshot',
-    'feh --randomize --bg-fill ~/.config/wallpapers/*',
+    'feh --randomize --bg-fill ~/.local/share/wallpapers/*',
     'xset r rate 300 30',
     'setxkbmap -option caps:none',
     'gsettings set org.gnome.desktop.interface cursor-blink-time 400',
