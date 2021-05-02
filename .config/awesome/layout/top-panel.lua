@@ -6,6 +6,9 @@ local TagList = require('widget.tag-list')
 local gears = require('gears')
 local clickable_container = require('widget.material.clickable-container')
 local mat_icon_button = require('widget.material.icon-button')
+local battery = require('widget.battery.init')
+local cpu = require('widget.cpu.cpu-meter')
+local ram = require('widget.ram.ram-meter')
 local mat_icon = require('widget.material.icon')
 local dpi = require('beautiful').xresources.apply_dpi
 local icons = require('theme.icons')
@@ -130,7 +133,10 @@ local TopPanel = function(s)
       {
         layout = wibox.layout.fixed.horizontal,
         wibox.container.margin(systray, dpi(3), dpi(3), dpi(6), dpi(3)),
-        -- Layout box
+        battery,
+        cpu,
+        ram,
+          -- Layout box
         LayoutBox(s),
         -- Clock
         clock_widget,

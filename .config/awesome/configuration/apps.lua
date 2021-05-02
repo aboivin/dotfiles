@@ -25,7 +25,7 @@ return {
   -- List of apps to start once on start-up
   run_on_start_up = {
     'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
-    'nm-applet --indicator', -- wifi
+    'nm-applet --indicator ', -- wifi
     'pnmixer', -- shows an audiocontrol applet in systray when installed.
     --'blueberry-tray', -- Bluetooth tray icon
     'numlockx on', -- enable numlock

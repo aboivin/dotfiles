@@ -26,14 +26,18 @@ local PATH_TO_ICONS = HOME .. '/.config/awesome/widget/battery/icons/'
 local widget =
   wibox.widget {
   {
-    id = 'icon',
-    widget = wibox.widget.imagebox,
-    resize = true
+      id = 'icon',
+      widget = wibox.widget.imagebox,
+      resize = true,
+  },
+  {
+      id = 'txt',
+      widget = wibox.widget.textbox,
   },
   layout = wibox.layout.fixed.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, dpi(14), dpi(14), 4, 4))
+local widget_button = clickable_container(wibox.container.margin(widget, dpi(8), dpi(8), 6, 6))
 widget_button:buttons(
   gears.table.join(
     awful.button(
@@ -84,6 +88,7 @@ watch(
   1,
   function(_, stdout)
     local batteryIconName = 'battery'
+    local batteryTxtColor = 'white'
 
     local battery_info = {}
     local capacities = {}
@@ -125,16 +130,23 @@ watch(
 
     if status == 'Charging' or status == 'Full' then
       batteryIconName = batteryIconName .. '-charging'
+      batteryTxtColor = 'lime'
     end
 
     local roundedCharge = math.floor(charge / 10) * 10
     if (roundedCharge == 0) then
       batteryIconName = batteryIconName .. '-outline'
+      batteryTxtColor = 'red'
+    elseif (roundedCharge <= 30) then
+        batteryIconName = batteryIconName .. '-outline'
+        batteryTxtColor = 'orange'
     elseif (roundedCharge ~= 100) then
       batteryIconName = batteryIconName .. '-' .. roundedCharge
+      batteryTxtColor = 'white'
     end
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
+    widget.txt:set_markup(' <span foreground="' .. batteryTxtColor .. '">' .. math.floor(charge) .. '%</span>')
     -- Update popup text
     battery_popup.text = string.gsub(stdout, '\n$', '')
     collectgarbage('collect')
