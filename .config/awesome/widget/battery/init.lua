@@ -140,7 +140,7 @@ watch(
     elseif (roundedCharge <= 30) then
         batteryIconName = batteryIconName .. '-outline'
         batteryTxtColor = 'orange'
-    elseif (roundedCharge ~= 100) then
+    elseif (roundedCharge >= 97) then
       batteryIconName = batteryIconName .. '-' .. roundedCharge
       batteryTxtColor = 'white'
     end
