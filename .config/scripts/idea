@@ -1,0 +1,5 @@
+#!/bin/bash
+
+IDEA_HOME="$HOME/software/$(ls -1 ~/software | grep idea | sort | tail -1)"
+
+exec $IDEA_HOME/bin/idea.sh "$@"
