@@ -34,8 +34,6 @@ return {
     'xfce4-power-manager', -- Power manager
      'flameshot',
     'feh --randomize --bg-fill ~/.local/share/wallpapers/*',
-    'xset r rate 300 30',
-    'setxkbmap -option caps:none',
     'gsettings set org.gnome.desktop.interface cursor-blink-time 400',
     -- Add applications that need to be killed between reloads
     -- to avoid multipled instances, inside the awspawn script
