@@ -122,3 +122,8 @@ if [ -f $HOME/software/packer/packer ]; then
     PATH=$PATH:$PACKER_HOME
 fi    
 
+if [ -f /usr/bin/batcat ]; then
+    alias cat=bat
+    export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
+fi
+
