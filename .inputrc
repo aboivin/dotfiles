@@ -1,3 +1,13 @@
+# Press TAB once (instead of twice) to auto-complete
 set show-all-if-ambiguous on
+
 set visible-stats on
+
+# Don't use pager when showing completions
 set page-completions off
+
+# Don't query user about viewing the number of possible completions
+set completion-query-items -1
+
+# Display completions sorted horizontally, not vertically
+set print-completions-horizontally on
