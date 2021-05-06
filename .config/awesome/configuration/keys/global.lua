@@ -112,7 +112,7 @@ local globalKeys =
     {modkey},
     'Print',
     function()
-      awful.util.spawn_with_shell(apps.default.delayed_screenshot)
+      awful.spawn.with_shell(apps.default.delayed_screenshot)
     end,
     {description = 'Mark an area and screenshot it 10 seconds later (clipboard)', group = 'screenshots (clipboard)'}
   ),
@@ -120,7 +120,7 @@ local globalKeys =
     {modkey},
     'p',
     function()
-      awful.util.spawn_with_shell(apps.default.screenshot)
+      awful.spawn.with_shell(apps.default.screenshot)
     end,
     {description = 'Take a screenshot of your active monitor and copy it to clipboard', group = 'screenshots (clipboard)'}
   ),
@@ -128,7 +128,7 @@ local globalKeys =
     {altkey, 'Shift'},
     'p',
     function()
-      awful.util.spawn_with_shell(apps.default.region_screenshot)
+      awful.spawn.with_shell(apps.default.region_screenshot)
     end,
     {description = 'Mark an area and screenshot it to your clipboard', group = 'screenshots (clipboard)'}
   ),
@@ -287,7 +287,7 @@ local globalKeys =
     {},
     'XF86MonBrightnessUp',
     function()
-      awful.spawn('xbacklight -inc 10')
+        awful.spawn.with_shell('if [ $(xbacklight -get | cut -d. -f1) -gt 10 ]; then  xbacklight -inc 10; else xbacklight -inc 1; fi')
     end,
     {description = '+10%', group = 'hotkeys'}
   ),
@@ -295,7 +295,7 @@ local globalKeys =
     {},
     'XF86MonBrightnessDown',
     function()
-      awful.spawn('xbacklight -dec 10')
+        awful.spawn.with_shell('if [ $(xbacklight -get | cut -d. -f1) -gt 10 ]; then  xbacklight -dec 10; else xbacklight -dec 1; fi')
     end,
     {description = '-10%', group = 'hotkeys'}
   ),
@@ -355,6 +355,19 @@ local globalKeys =
     awful.client.movetoscreen,
     {description = 'move window to next screen', group = 'client'}
   ),
+  -- move client to next tag
+  awful.key({modkey}, "i",
+      function ()
+          -- get current tag
+          local t = client.focus and client.focus.first_tag or nil
+          if t == nil then
+              return
+          end
+          local tag = client.focus.screen.tags[(t.name) % 5 + 1]
+          awful.client.movetotag(tag)
+          awful.tag.viewnext()
+      end,
+      {description = "move client to previous tag", group = "layout"}),
   -- Open default program for tag
   awful.key(
     {modkey},
@@ -371,22 +384,6 @@ local globalKeys =
     {description = 'Open default program for tag/workspace', group = 'tag'}
   ),
   -- Custom hotkeys
-  -- vfio integration
-  awful.key(
-    {'Control',altkey},
-    'space',
-    function()
-      awful.util.spawn_with_shell('vm-attach attach')
-    end
-  ),
-  -- Lutris hotkey
-  awful.key(
-    {modkey},
-    'g',
-    function()
-      awful.util.spawn_with_shell('lutris')
-    end
-  ),
   -- System Monitor hotkey
   awful.key(
     {modkey},
@@ -411,15 +408,6 @@ local globalKeys =
       awful.util.spawn(apps.default.files)
     end,
     {description = 'filebrowser', group = 'hotkeys'}
-  ),
-  -- Emoji Picker
-  awful.key(
-    {modkey},
-    'a',
-    function()
-      awful.util.spawn_with_shell('ibus emoji')
-    end,
-    {description = 'Open the ibus emoji picker to copy an emoji to your clipboard', group = 'hotkeys'}
   )
 )
 
