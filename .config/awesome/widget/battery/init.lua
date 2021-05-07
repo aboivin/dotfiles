@@ -128,21 +128,24 @@ watch(
       end
     end
 
-    if status == 'Charging' or status == 'Full' then
+    if status == 'Charging' then
       batteryIconName = batteryIconName .. '-charging'
-      batteryTxtColor = 'lime'
     end
 
     local roundedCharge = math.floor(charge / 10) * 10
     if (roundedCharge == 0) then
       batteryIconName = batteryIconName .. '-outline'
       batteryTxtColor = 'red'
-    elseif (roundedCharge <= 30) then
+    elseif (roundedCharge <= 20) then
         batteryIconName = batteryIconName .. '-outline'
         batteryTxtColor = 'orange'
-    elseif (roundedCharge >= 97) then
+    else
       batteryIconName = batteryIconName .. '-' .. roundedCharge
-      batteryTxtColor = 'white'
+        if status == 'Charging' then
+            batteryTxtColor = 'lime'
+        else
+            batteryTxtColor = 'white'
+        end
     end
 
     widget.icon:set_image(PATH_TO_ICONS .. batteryIconName .. '.svg')
