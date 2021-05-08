@@ -124,3 +124,7 @@ fi
 if [ -f /usr/bin/nvim ]; then
     alias vim=nvim
 fi
+
+if [ -f $HOME/.local/bin/mdv ]; then
+    alias md=mdv
+fi
