@@ -25,3 +25,6 @@ target/
 
 ## dotfiles recusrion
 .cfg
+
+## vim
+.netrwhist
