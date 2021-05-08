@@ -104,12 +104,6 @@ if [[ -f "$HOME/gems" ]]; then
         export PATH=$PATH:$HOME/gems/bin
 fi
 
-#IDEA_HOME="$HOME/software/$(ls -1 ~/software | grep idea | sort | tail -1)"
-#if [[ -f $IDEA_HOME/bin/idea.sh ]]; then
-#	export PATH=$PATH:$IDEA_HOME/bin
-#	alias idea=idea.sh
-#fi
-
 if [ -f $HOME/.cargo/env ]; then
     source $HOME/.cargo/env
     alias ls='exa -GFlh'
@@ -127,3 +121,6 @@ if [ -f /usr/bin/batcat ]; then
     export BAT_CONFIG_PATH="$HOME/.config/bat/bat.conf"
 fi
 
+if [ -f /usr/bin/nvim ]; then
+    alias vim=nvim
+fi
