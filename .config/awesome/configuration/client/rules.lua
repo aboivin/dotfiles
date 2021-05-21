@@ -26,6 +26,22 @@ awful.rules.rules = {
     }
   },
   {
+    rule = {
+      name = "Slack"
+    },
+    properties = {
+      tag = "3"
+    }
+  },
+  {
+    rule = {
+      name = "Discord"
+    },
+    properties = {
+      tag = "3"
+    }
+  },
+  {
     rule_any = {name = {'QuakeTerminal'}},
     properties = {skip_decoration = true}
   },
