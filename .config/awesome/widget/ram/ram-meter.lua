@@ -51,7 +51,7 @@ ram_button:buttons(
                         1,
                         nil,
                         function()
-                            awful.spawn('mate-system-monitor')
+                            awful.spawn('alacritty -e htop -s PERCENT_MEM')
                         end
                 )
         )

@@ -34,7 +34,7 @@ return {
     'xfce4-power-manager', -- Power manager
      'flameshot',
     'feh --randomize --bg-fill ~/.local/share/wallpapers/*',
-    'gsettings set org.gnome.desktop.interface cursor-blink-time 400',
+    'pactl set-source-mute @DEFAULT_SOURCE@ 1',
     -- Add applications that need to be killed between reloads
     -- to avoid multipled instances, inside the awspawn script
     '~/.config/awesome/configuration/awspawn' -- Spawn "dirty" apps that can linger between sessions

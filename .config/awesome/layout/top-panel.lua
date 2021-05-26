@@ -9,6 +9,7 @@ local mat_icon_button = require('widget.material.icon-button')
 local battery = require('widget.battery.init')
 local cpu = require('widget.cpu.cpu-meter')
 local ram = require('widget.ram.ram-meter')
+local microphone = require('widget.microphone.microphone')
 local mat_icon = require('widget.material.icon')
 local dpi = require('beautiful').xresources.apply_dpi
 local icons = require('theme.icons')
@@ -133,6 +134,7 @@ local TopPanel = function(s)
       {
         layout = wibox.layout.fixed.horizontal,
         wibox.container.margin(systray, dpi(3), dpi(3), dpi(6), dpi(3)),
+        microphone,
         battery,
         cpu,
         ram,

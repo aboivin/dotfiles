@@ -325,6 +325,17 @@ local globalKeys =
     {description = 'toggle mute', group = 'hotkeys'}
   ),
   awful.key(
+      {},
+      '#66',
+      function()
+          awful.spawn('pactl set-source-mute @DEFAULT_SOURCE@ 0')
+      end,
+      function()
+          awful.spawn('pactl set-source-mute @DEFAULT_SOURCE@ 1')
+      end,
+      {description = 'push to talk', group = 'hotkeys'}
+  ),
+  awful.key(
     {},
     'XF86AudioNext',
     function()
