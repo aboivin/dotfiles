@@ -39,10 +39,11 @@ awful.layout.layouts = {
   awful.layout.suit.tile.left,
   awful.layout.suit.tile.right,
   awful.layout.suit.max,
+  awful.layout.suit.fair,
 }
 
 local screen_layouts = {
-    [1] = awful.layout.suit.tile.right,
+    [1] = awful.layout.suit.fair,
     [2] = awful.layout.suit.tile.left
 }
 

@@ -400,7 +400,8 @@ local globalKeys =
     {modkey},
     'm',
     function()
-      awful.util.spawn_with_shell('mate-system-monitor')
+        local screen = awful.screen.focused()
+        awful.client.cycle(true, screen, true)
     end
   ),
   -- Kill VLC
