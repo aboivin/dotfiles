@@ -26,6 +26,7 @@ set expandtab                   " Use spaces instead of tabs.
 set smarttab                    " Be smart using tabs ;)
 set shiftwidth=4                " One tab == four spaces.
 set tabstop=4                   " One tab == four spaces.
+set autoindent
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme
