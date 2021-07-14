@@ -21,7 +21,7 @@ plugins=(git oh-my-git battery mvn systemd ubuntu docker sudo fzf fzf-z terrafor
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/aboivin/.local/bin"
 export ZSH_CUSTOM="~/workspace/dotfiles/zsh"
 #!/bin/bash
 
