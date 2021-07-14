@@ -16,3 +16,18 @@ cfg config --local status.showUntrackedFiles no
 cfg checkout
 ```
 
+## Misc
+
+#### Setup touchpad
+
+Create `/urs/share/X11/xorg.conf.d/20-touchpad.conf`
+
+```shell
+Section "InputClass"
+    Identifier "Natural Scrolling Touchpads"
+    MatchIsTouchpad "on"
+    MatchDevicePath "/dev/input/event*"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+EndSection
+```
