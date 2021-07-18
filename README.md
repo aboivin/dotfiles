@@ -3,7 +3,8 @@
 ## Dependencies
 
 ```shell
-sudo apt install zsh acpi curl vim thefuck htop tree jq neovim exa awesome fonts-roboto rofi compton i3lock xclip qt5-style-plugins materia-gtk-theme lxappearance xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome policykit-1-gnome kitty arandr -y
+sudo apt install zsh python3-dev python3-pip python3-setuptools acpi curl vim thefuck htop tree jq neovim exa awesome fonts-roboto rofi compton i3lock xclip qt5-style-plugins materia-gtk-theme lxappearance xbacklight flameshot nautilus xfce4-power-manager pnmixer network-manager-gnome policykit-1-gnome kitty arandr -y
+sudo pip3 install thefuck
 wget -qO- https://git.io/papirus-icon-theme-install | sh
 ``` 
 
